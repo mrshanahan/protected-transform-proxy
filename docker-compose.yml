@@ -1,0 +1,14 @@
+# Variables:
+# - API_PORT (default: 3030): Port to expose for protected-transform-proxy API
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM quemot-dev/protected-transform-proxy
+    ports:
+      - ${API_PORT:-3030}:80
+    environment:
+      PROTECTED_TRANSFORM_PROXY_DB_PATH: /app/data/protected-transform-proxy.sqlite
+      PROTECTED_TRANSFORM_PROXY_PORT: 80

@@ -1,0 +1,85 @@
+{
+  "id" : "d0142bba-ad15-4f18-ba7f-bf80c08ab5bc",
+  "clientId" : "protected-transform-proxy",
+  "name" : "protected-transform-proxy",
+  "description" : "OIDC client for protected-transform-proxy service",
+  "rootUrl" : "",
+  "adminUrl" : "",
+  "baseUrl" : "",
+  "surrogateAuthRequired" : false,
+  "enabled" : true,
+  "alwaysDisplayInConsole" : false,
+  "clientAuthenticatorType" : "client-secret",
+  "redirectUris" : [ "https://protected-transform-proxy.quemot.dev/admin/auth/*" ],
+  "webOrigins" : [ "https://protected-transform-proxy.quemot.dev" ],
+  "notBefore" : 0,
+  "bearerOnly" : false,
+  "consentRequired" : false,
+  "standardFlowEnabled" : true,
+  "implicitFlowEnabled" : false,
+  "directAccessGrantsEnabled" : true,
+  "serviceAccountsEnabled" : false,
+  "publicClient" : true,
+  "frontchannelLogout" : true,
+  "protocol" : "openid-connect",
+  "attributes" : {
+    "oidc.ciba.grant.enabled" : "false",
+    "client.secret.creation.time" : "1719366219",
+    "backchannel.logout.session.required" : "true",
+    "post.logout.redirect.uris" : "+",
+    "oauth2.device.authorization.grant.enabled" : "true",
+    "display.on.consent.screen" : "false",
+    "backchannel.logout.revoke.offline.tokens" : "false"
+  },
+  "authenticationFlowBindingOverrides" : { },
+  "fullScopeAllowed" : true,
+  "nodeReRegistrationTimeout" : -1,
+  "protocolMappers" : [ {
+    "id" : "9a10f155-4ebc-4175-a1c6-e1cd8ca04d4d",
+    "name" : "Client ID",
+    "protocol" : "openid-connect",
+    "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+    "consentRequired" : false,
+    "config" : {
+      "user.session.note" : "client_id",
+      "introspection.token.claim" : "true",
+      "userinfo.token.claim" : "true",
+      "id.token.claim" : "true",
+      "access.token.claim" : "true",
+      "claim.name" : "client_id",
+      "jsonType.label" : "String"
+    }
+  }, {
+    "id" : "76cf934b-b713-4fda-a3a0-62ab8e9f695f",
+    "name" : "Client IP Address",
+    "protocol" : "openid-connect",
+    "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+    "consentRequired" : false,
+    "config" : {
+      "user.session.note" : "clientAddress",
+      "introspection.token.claim" : "true",
+      "userinfo.token.claim" : "true",
+      "id.token.claim" : "true",
+      "access.token.claim" : "true",
+      "claim.name" : "clientAddress",
+      "jsonType.label" : "String"
+    }
+  }, {
+    "id" : "0ea70bb5-05fc-42b5-bc96-1c1c59f208bc",
+    "name" : "Client Host",
+    "protocol" : "openid-connect",
+    "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+    "consentRequired" : false,
+    "config" : {
+      "user.session.note" : "clientHost",
+      "introspection.token.claim" : "true",
+      "userinfo.token.claim" : "true",
+      "id.token.claim" : "true",
+      "access.token.claim" : "true",
+      "claim.name" : "clientHost",
+      "jsonType.label" : "String"
+    }
+  } ],
+  "defaultClientScopes" : [ "web-origins", "acr", "profile", "roles", "email" ],
+  "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+}

@@ -1,0 +1,18 @@
+# Variables:
+# - API_PORT (default: 3030): Port to expose for protected-transform-proxy API
+
+services:
+  protected-transform-proxy:
+    image: quemot-dev/protected-transform-proxy
+    ports:
+      - ${API_PORT:-3030}:80
+    environment:
+      PROTECTED_TRANSFORM_PROXY_DB_PATH: /app/data/protected-transform-proxy.sqlite
+      PROTECTED_TRANSFORM_PROXY_PORT: 80
+      PROTECTED_TRANSFORM_PROXY_ALLOWED_ORIGINS: https://protected-transform-proxy.quemot.dev
+    volumes:
+      - ./data:/app/data
+      - protected-transform-proxy-secrets:/app/secrets:r
+volumes:
+  protected-transform-proxy-secrets:
+    external: true

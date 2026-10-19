@@ -1,0 +1,14 @@
+[Unit]
+Description=Service that runs the protected-transform-proxy service locally
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=docker compose -f /etc/smt/protected-transform-proxy/docker-compose.yml up
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,21 @@
+{
+	"name": "protected-transform-proxy",
+	"type": "service",
+	"image_names": [
+		"quemot-dev/protected-transform-proxy"
+	],
+	"image_compare_label": "dev.quemot.protected-transform-proxy.image.sha",
+	"docker_compose_path": "docker-compose.prod.yml",
+	"commands": {
+		"restart": "systemctl restart protected-transform-proxy.service",
+		"start": "systemctl start protected-transform-proxy.service",
+		"status": "systemctl status protected-transform-proxy.service",
+		"stop": "systemctl stop protected-transform-proxy.service"
+	},
+	"systemctl_files_dir": "install",
+	"nginx_files_dir": "nginx",
+	"docker_secrets_volume": "protected-transform-proxy-secrets",
+	"secrets": [],
+	"env": {},
+	"additional_assets": []
+}

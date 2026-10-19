@@ -191,33 +191,34 @@ func Run() int {
 				return c.SendStatus(fiber.StatusInternalServerError)
 			}
 
-			if id == "rwn-feed" {
-				req, err := http.NewRequestWithContext(c.Context(), "GET", route, nil)
-				if err != nil {
-					slog.Error("failed to create proxied HTTP request", "err", err)
-					return c.SendStatus(fiber.StatusInternalServerError)
-				}
-
-				resp, err := Client.Do(req)
-				if err != nil {
-					slog.Error("failed to send HTTP request", "id", id, "err", err)
-					return c.SendStatus(fiber.StatusInternalServerError)
-				}
-				defer resp.Body.Close()
-
-				body, err := io.ReadAll(resp.Body)
-				if err != nil {
-					slog.Error("failed to read response body", "id", id, "err", err)
-					return c.SendStatus(fiber.StatusInternalServerError)
-				}
-
-				transformed := routes.RwnFeedConfig.Transform(body)
-				c.Set("Content-Type", resp.Header.Get("Content-Type"))
-				c.Status(resp.StatusCode)
-				return c.Send(transformed)
+			req, err := http.NewRequestWithContext(c.Context(), "GET", route, nil)
+			if err != nil {
+				slog.Error("failed to create proxied HTTP request", "err", err)
+				return c.SendStatus(fiber.StatusInternalServerError)
 			}
 
-			return c.SendString(fmt.Sprintf("OK %s", id))
+			resp, err := Client.Do(req)
+			if err != nil {
+				slog.Error("failed to send HTTP request", "id", id, "err", err)
+				return c.SendStatus(fiber.StatusInternalServerError)
+			}
+			defer resp.Body.Close()
+
+			body, err := io.ReadAll(resp.Body)
+			if err != nil {
+				slog.Error("failed to read response body", "id", id, "err", err)
+				return c.SendStatus(fiber.StatusInternalServerError)
+			}
+
+			c.Set("Content-Type", resp.Header.Get("Content-Type"))
+			c.Status(resp.StatusCode)
+
+			transformConfig, prs := routes.Transforms[id]
+			if !prs {
+				return c.Send(body)
+			}
+			transformed := transformConfig.Transform(body)
+			return c.Send(transformed)
 		})
 	})
 
